@@ -1,4 +1,5 @@
 import { useConfig } from '@/lib/config'
+import VercelBanner from '@/components/VercelBanner'
 
 export default function Footer ({ fullWidth }) {
   const BLOG = useConfig()
@@ -14,10 +15,11 @@ export default function Footer ({ fullWidth }) {
     >
       <hr className="border-gray-200 dark:border-gray-600"/>
       <div className="my-4 text-sm leading-6">
-        <div className="flex align-baseline justify-between flex-wrap">
+        <div className="flex justify-between items-center flex-wrap">
           <p>
             © {BLOG.author} {from === y || !from ? y : `${from} - ${y}`}
           </p>
+          <VercelBanner height={30}/>
         </div>
       </div>
     </div>
