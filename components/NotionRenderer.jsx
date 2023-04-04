@@ -3,8 +3,9 @@ import { NotionRenderer as Renderer } from 'react-notion-x'
 import { getTextContent } from 'notion-utils'
 import { FONTS_SANS, FONTS_SERIF } from '@/consts'
 import { useConfig } from '@/lib/config'
-import Toggle from '@/components/notion-blocks/Toggle'
+import Block from '@/components/notion-blocks'
 
+const customBlockRenderer = ({ block, children }) => <Block block={block}>{children}</Block>
 // Lazy-load some heavy components & override the renderers of some block types
 const components = {
   /* Lazy-load */
@@ -91,9 +92,9 @@ const components = {
 
   /* Overrides */
 
-  toggle_nobelium: ({ block, children }) => (
-    <Toggle block={block}>{children}</Toggle>
-  ),
+  toggle_osmium: customBlockRenderer,
+  bulleted_list_osmium: customBlockRenderer,
+  numbered_list_osmium: customBlockRenderer,
 }
 
 const mapPageUrl = id => `https://www.notion.so/${id.replace(/-/g, '')}`
@@ -118,7 +119,9 @@ export default function NotionRenderer (props) {
     for (const { value: block } of Object.values(props.recordMap.block)) {
       switch (block?.type) {
         case 'toggle':
-          block.type += '_nobelium'
+        case 'bulleted_list':
+        case 'numbered_list':
+          block.type += '_osmium'
           break
       }
     }
