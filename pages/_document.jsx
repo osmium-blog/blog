@@ -1,5 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document'
 import cn from 'classnames'
+import tailwindConfig from '@/tailwind.config'
 import { config } from '@/lib/server/config'
 
 export default function MyDocument () {
@@ -11,7 +12,7 @@ export default function MyDocument () {
   return (
     <Html lang={config.lang} className={cn(initialColorScheme)}>
       <Head>
-        <link rel="icon" href="/osmium.svg"/>
+        <link rel="icon" href="/favicon.png"/>
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/-/feed"></link>
         {config.appearance === 'auto'
           ? (
@@ -24,8 +25,32 @@ export default function MyDocument () {
             <meta name="theme-color" content={config.appearance === 'dark' ? config.darkBackground : config.lightBackground}/>
           )
         }
+        <style>
+          {`
+          .color-scheme-unset, .color-scheme-unset body {
+            background-color: ${tailwindConfig.theme.extend.colors.day.DEFAULT} !important;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            .color-scheme-unset, .color-scheme-unset body {
+              background-color: ${tailwindConfig.theme.extend.colors.night.DEFAULT} !important;
+            }
+          }
+
+          .fouc {
+            opacity: 0;
+            transform: translateY(-40px);
+          }
+
+          .fouc-transition {
+            transition-property: opacity transform;
+            transition-duration: 500ms;
+            transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+          }
+          `}
+        </style>
       </Head>
-      <body className="bg-day dark:bg-night">
+      <body className="fouc fouc-transition bg-day dark:bg-night">
         <Main/>
         <NextScript/>
       </body>

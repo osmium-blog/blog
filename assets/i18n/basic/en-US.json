@@ -1,5 +1,6 @@
 {
   "NAV": {
+    "BACK_TO_HOME": "Back to home",
     "INDEX": "Posts",
     "RSS": "RSS",
     "SEARCH": "Search",
@@ -8,10 +9,6 @@
   "PAGINATION": {
     "PREV": "Prev",
     "NEXT": "Next"
-  },
-  "POST": {
-    "BACK": "Back",
-    "TOP": "Top"
   },
   "PAGE": {
     "ERROR_404": {
