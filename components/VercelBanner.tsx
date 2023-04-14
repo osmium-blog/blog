@@ -5,9 +5,14 @@ const RAW_WIDTH = 212
 const RAW_HEIGHT = 44
 const RATIO = RAW_WIDTH / RAW_HEIGHT
 
-export default function VercelBanner ({ width, height }) {
-  const finalWidth = width || height * RATIO
-  const finalHeight = height || width / RATIO
+type Props = {
+  width?: number
+  height?: number
+}
+
+export default function VercelBanner ({ width, height }: Props) {
+  const finalWidth = width || height! * RATIO
+  const finalHeight = height || width! / RATIO
 
   return (
     <Link href="https://vercel.com/?utm_source=Osmium&utm_campaign=oss">
